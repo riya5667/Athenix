@@ -62,12 +62,8 @@ body {
     transition: 0.4s;
 }
 
-/* Sections for demonstration */
-section {
-    height: 100vh;
-    padding: 40px;
-    text-align: center;
-}
+
+
 
 #home {
     background-color: #f4f4f4;
