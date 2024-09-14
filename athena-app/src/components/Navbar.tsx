@@ -1,12 +1,21 @@
 "use client";
+
 import { cn } from "~/lib/utils";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconX, IconSettings, IconLogout } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
   const navItems = [
     {
       name: "Dashboard",
@@ -32,13 +41,13 @@ export const Navbar = () => {
 
   return (
     <div className="w-full">
-      <DesktopNav navItems={navItems} />
-      <MobileNav navItems={navItems} />
+      <DesktopNav navItems={navItems} session={session} />
+      <MobileNav navItems={navItems} session={session} />
     </div>
   );
 };
 
-const DesktopNav = ({ navItems }: any) => {
+const DesktopNav = ({ navItems, session }: any) => {
   const [hovered, setHovered] = useState<number | null>(null);
   return (
     <motion.div
@@ -69,14 +78,23 @@ const DesktopNav = ({ navItems }: any) => {
           </Link>
         ))}
       </div>
-      <button className="hidden md:block px-8 py-2 text-sm font-bold rounded-full bg-black dark:bg-white dark:text-black text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
-        Create Event
-      </button>
+      {session ? (
+        <div className="flex items-center space-x-4">
+          <button className="px-8 py-2 text-sm font-bold rounded-full bg-black dark:bg-white dark:text-black text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
+            Create Event
+          </button>
+          <ProfileDropdown session={session} />
+        </div>
+      ) : (
+        <Link href="/login" className="px-8 py-2 text-sm font-bold rounded-full bg-black dark:bg-white dark:text-black text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
+          Login
+        </Link>
+      )}
     </motion.div>
   );
 };
 
-const MobileNav = ({ navItems }: any) => {
+const MobileNav = ({ navItems, session }: any) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -122,9 +140,18 @@ const MobileNav = ({ navItems }: any) => {
                   <motion.span className="block">{navItem.name} </motion.span>
                 </Link>
               ))}
-              <button className="px-8 py-2 w-full rounded-lg bg-black dark:bg-white dark:text-black font-medium text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
-                Create Event
-              </button>
+              {session ? (
+                <>
+                  <button className="px-8 py-2 w-full rounded-lg bg-black dark:bg-white dark:text-black font-medium text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
+                    Create Event
+                  </button>
+                  <ProfileDropdown session={session} />
+                </>
+              ) : (
+                <Link href="/login" className="px-8 py-2 w-full rounded-lg bg-black dark:bg-white dark:text-black font-medium text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
+                  Login
+                </Link>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -140,12 +167,39 @@ const Logo = () => {
       className="font-normal flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1  relative z-20"
     >
       <Image
-        src="/logo.jpeg"
+        src="/logo.png"
         alt="logo"
         width={30}
         height={30}
       />
       <span className="font-medium text-black dark:text-white">EventMaster</span>
     </Link>
+  );
+};
+
+const ProfileDropdown = ({ session }: any) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="rounded-full overflow-hidden">
+          <Image
+            src={session.user.image || "/default-avatar.png"}
+            alt="Profile"
+            width={40}
+            height={40}
+          />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <IconSettings className="mr-2 h-4 w-4" />
+          <span>Settings</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => signOut()}>
+          <IconLogout className="mr-2 h-4 w-4" />
+          <span>Logout</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
