@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "~/components/ui/avatar";
 
 export const Navbar = () => {
   const { data: session } = useSession();
@@ -181,14 +182,12 @@ const ProfileDropdown = ({ session }: any) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="rounded-full overflow-hidden">
-          <Image
-            src={session.user.image || "/default-avatar.png"}
-            alt="Profile"
-            width={40}
-            height={40}
-          />
-        </button>
+        <Avatar>
+            <AvatarImage src={session.user.image} alt="Profile" />
+                <AvatarFallback>
+                {session.user.name ? session.user.name.charAt(0).toUpperCase() : 'U'}
+                </AvatarFallback>
+          </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
