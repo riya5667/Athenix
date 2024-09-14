@@ -18,6 +18,21 @@ import {
   SquareTerminal,
   Star,
   Turtle,
+  Calendar,
+  Users,
+  MapPin,
+  Clipboard,
+  DollarSign,
+  Clock,
+  Mail,
+  Building,
+  Utensils,
+  Music,
+  Camera,
+  Truck,
+  Settings,
+  HelpCircle,
+  MessageSquare,
 } from "lucide-react"
 
 import { NavMain } from "~/components/nav-main"
@@ -34,142 +49,120 @@ import {
   SidebarItem,
   SidebarLabel,
 } from "~/components/ui/sidebar"
+
 const data = {
   teams: [
     {
-      name: "Acme Inc",
-      logo: Atom,
+      name: "Event Planners Inc",
+      logo: Calendar,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
-      logo: Eclipse,
+      name: "Wedding Wizards",
+      logo: Users,
       plan: "Startup",
     },
     {
-      name: "Evil Corp.",
-      logo: Rabbit,
+      name: "Corporate Events Co.",
+      logo: Building,
       plan: "Free",
     },
   ],
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "John Doe",
+    email: "john@eventplanner.com",
+    avatar: "/avatars/john-doe.jpg",
   },
   navMain: [
     {
-      title: "Playground",
+      title: "Dashboard",
       url: "#",
-      icon: SquareTerminal,
+      icon: Clipboard,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Overview",
           url: "#",
-          icon: History,
-          description: "View your recent prompts",
+          icon: Calendar,
+          description: "View your upcoming events",
         },
         {
-          title: "Starred",
+          title: "Guest List",
           url: "#",
-          icon: Star,
-          description: "Browse your starred prompts",
+          icon: Users,
+          description: "Manage event attendees",
         },
         {
-          title: "Settings",
+          title: "Venues",
           url: "#",
-          icon: Settings2,
-          description: "Configure your playground",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-          icon: Rabbit,
-          description: "Our fastest model for general use cases.",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-          icon: Bird,
-          description: "Performance and speed for efficiency.",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-          icon: Turtle,
-          description: "The most powerful model for complex computations.",
+          icon: MapPin,
+          description: "Browse and select event locations",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Planning Tools",
       url: "#",
-      icon: BookOpen,
+      icon: Clock,
       items: [
         {
-          title: "Introduction",
+          title: "Budget Tracker",
           url: "#",
+          icon: DollarSign,
+          description: "Manage your event finances",
         },
         {
-          title: "Get Started",
+          title: "Schedule",
           url: "#",
+          icon: Clock,
+          description: "Plan your event timeline",
         },
         {
-          title: "Tutorials",
+          title: "Invitations",
           url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          icon: Mail,
+          description: "Create and send event invitations",
         },
       ],
     },
     {
-      title: "API",
+      title: "Vendors",
       url: "#",
-      icon: Code2,
+      icon: Truck,
       items: [
         {
-          title: "Chat",
+          title: "Catering",
           url: "#",
+          icon: Utensils,
         },
         {
-          title: "Completion",
+          title: "Entertainment",
           url: "#",
+          icon: Music,
         },
         {
-          title: "Images",
+          title: "Photography",
           url: "#",
+          icon: Camera,
         },
         {
-          title: "Video",
+          title: "Decorations",
           url: "#",
-        },
-        {
-          title: "Speech",
-          url: "#",
+          icon: MapPin,
         },
       ],
     },
     {
       title: "Settings",
       url: "#",
-      icon: Settings2,
+      icon: Settings,
       items: [
         {
-          title: "General",
+          title: "Account",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Preferences",
           url: "#",
         },
         {
@@ -177,7 +170,7 @@ const data = {
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Integrations",
           url: "#",
         },
       ],
@@ -186,31 +179,31 @@ const data = {
 
   navSecondary: [
     {
-      title: "Support",
+      title: "Help Center",
       url: "#",
-      icon: LifeBuoy,
+      icon: HelpCircle,
     },
     {
-      title: "Feedback",
+      title: "Contact Support",
       url: "#",
-      icon: Send,
+      icon: MessageSquare,
     },
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Summer Conference 2024",
       url: "#",
-      icon: Frame,
+      icon: Building,
     },
     {
-      name: "Sales & Marketing",
+      name: "Smith-Johnson Wedding",
       url: "#",
-      icon: PieChart,
+      icon: Users,
     },
     {
-      name: "Travel",
+      name: "Annual Corporate Retreat",
       url: "#",
-      icon: Map,
+      icon: MapPin,
     },
   ],
   searchResults: [
@@ -250,8 +243,11 @@ const data = {
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+      <SidebarHeader className="mt-10">
+      <SidebarItem>
+          <SidebarLabel>Teams</SidebarLabel>
+          <TeamSwitcher teams={data.teams} />
+        </SidebarItem>
       </SidebarHeader>
       <SidebarContent>
         <SidebarItem>
@@ -262,6 +258,7 @@ export function AppSidebar() {
           <SidebarLabel>Projects</SidebarLabel>
           <NavProjects projects={data.projects} />
         </SidebarItem>
+     
         <SidebarItem className="mt-auto">
           <SidebarLabel>Help</SidebarLabel>
           <NavSecondary items={data.navSecondary} />

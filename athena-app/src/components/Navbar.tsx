@@ -81,9 +81,9 @@ const DesktopNav = ({ navItems, session }: any) => {
       </div>
       {session ? (
         <div className="flex items-center space-x-4">
-          <button className="px-8 py-2 text-sm font-bold rounded-full bg-black dark:bg-white dark:text-black text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
+          <Link href="/event-create" className="px-8 py-2 text-sm font-bold rounded-full bg-black dark:bg-white dark:text-black text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset]">
             Create Event
-          </button>
+          </Link>
           <ProfileDropdown session={session} />
         </div>
       ) : (
