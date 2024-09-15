@@ -40,7 +40,7 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Enter your email below to login to your account or Login with Google
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -48,6 +48,7 @@ export function LoginForm() {
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
+              disabled
               id="email"
               type="email"
               placeholder="m@example.com"
@@ -64,6 +65,7 @@ export function LoginForm() {
               </Link>
             </div>
             <Input
+              disabled
               id="password"
               type="password"
               required
@@ -71,7 +73,7 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled>
             Login
           </Button>
           <Button
